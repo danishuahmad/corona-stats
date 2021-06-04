@@ -6,11 +6,3 @@ export type StatisticsProps = {
     recovered: number | null
     deaths: number | null   
 }
-export type AggregateRequestResponse = {
-    data: {
-        cases: number
-        recovered: number
-        deaths: number
-    },
-    status: number 
-}
