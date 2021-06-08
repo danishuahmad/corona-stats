@@ -6,3 +6,8 @@ export type StatisticsProps = {
     recovered: number | null
     deaths: number | null   
 }
+export type RefreshProps = { 
+    state?: string,
+    days?: number,
+    region?: string
+}

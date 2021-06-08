@@ -15,13 +15,17 @@ export const getStatistics =
     }
 
     return Promise.all(Object.values(requests)).then((results) => {
-        const dataPath = state ? `data.${state}.history` : `data`
         return Object.keys(requests).reduce( (acc,key,index) => {
+            //  decide path to pick data from
+            const list = state ? 
+                results[index].data['data'][state]['history']
+                : results[index].data['data']
+
             return {
                 ...acc,
                 [key]: {
-                    total: results[index].data[dataPath].reduce(totalFigures,0),
-                    list: results[index].data[dataPath]
+                    total: list.reduce(totalFigures,0),
+                    list
                 }
             }
         },{})

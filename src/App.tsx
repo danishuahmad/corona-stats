@@ -1,10 +1,9 @@
-import AppBar from './src/Components/Layout/AppBar';
+import AppBar from "./src/Components/Layout/AppBar"
 import Dashboard from "./src/Components/Dashboard/Index"
+import Warning from "./src/Components/Alerts/Warning"
 import { MuiThemeProvider } from "@material-ui/core/styles"
-import defaultTheme from './src/Components/Layout/theme'
+import defaultTheme from "./src/Components/Layout/theme"
 import CssBaseline from "@material-ui/core/CssBaseline"
-
-import './App.css'
 
 function App() {
   return (
@@ -12,6 +11,7 @@ function App() {
             <CssBaseline />
             <AppBar />
             <Dashboard/>
+            <Warning />
         </MuiThemeProvider>
     )
 }

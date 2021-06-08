@@ -1,5 +1,5 @@
 import * as React from "react";
-import { makeStyles, Paper, Typography } from "@material-ui/core";
+import { makeStyles, Paper, Typography } from "@material-ui/core"
 import { NumberBoxProps } from "../../types/statistics.types"
 
 const useStyles = makeStyles({
@@ -34,4 +34,4 @@ function Statistics({ title, number, color }: NumberBoxProps) {
     )
 }
 
-export default Statistics;
+export default Statistics

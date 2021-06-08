@@ -1,9 +1,8 @@
-import * as React from "react";
 import { Grid, Divider, Box, Typography, Hidden } from "@material-ui/core"
 import { StatisticsProps } from "../../types/statistics.types"
-import NumberBox from "./NumberBox";
+import NumberBox from "./NumberBox"
 
-function Statistics({ cases, recovered, deaths }: StatisticsProps) {
+function Statistics({ cases, recovered, deaths, region }: StatisticsProps) {
 
     return (
         <Box bgcolor="secondary.main" p={4}>
@@ -11,7 +10,7 @@ function Statistics({ cases, recovered, deaths }: StatisticsProps) {
                 <Hidden mdDown>
                     <Grid item lg={4}>
                         <Typography color={"inherit"} variant="h4" component="h2">
-                            All Over Germany
+                            {region}
                         </Typography>
                     </Grid>
                 </Hidden>

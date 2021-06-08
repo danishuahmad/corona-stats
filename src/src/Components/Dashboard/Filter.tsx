@@ -1,7 +1,7 @@
-import { Select, MenuItem, InputLabel, Box, Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
-import { FilterProps } from './types'
-import GermanStates from '../../../config/de.states.json'
-import { useState } from 'react'
+import { Select, MenuItem, InputLabel, Box, Grid, makeStyles, createStyles, Theme } from "@material-ui/core"
+import { FilterProps, RefreshProps } from "../../types/dashboard.types"
+import GermanStates from "../../../config/de.states.json"
+import { useState } from "react"
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -46,11 +46,8 @@ function Filter({refresh}:FilterProps) {
             value as setState is synchronous in nature hence we cannot
             rely on state data
         */
-        const requestData: {
-            state: string | undefined
-            days: number | undefined
-        } = {
-            state: selectedArea, days: selectedTimeRange ?? undefined
+        const requestData: RefreshProps = {
+            state: selectedArea, days: selectedTimeRange ?? undefined, region: undefined
         }
 
         if( area ){
@@ -63,6 +60,11 @@ function Filter({refresh}:FilterProps) {
         if( requestData.state === defaultArea.code ){
             requestData.state = undefined
         }
+
+        //  setup region name
+        const selectedState = GermanStates.find( state => state.code === requestData.state )
+        requestData.region = selectedState?.name ?? defaultArea.name
+
         refresh(requestData)
     }
 
@@ -79,7 +81,7 @@ function Filter({refresh}:FilterProps) {
                         className={classes.select}
                         value={selectedArea}
                         inputProps={{MenuProps: {disableScrollLock: true}}}
-                        onChange={event=>updateFilters({area: `${event.target.value}`})}
+                        onChange={event=> updateFilters({area: `${event.target.value}`})}
                     >
                         <MenuItem value={defaultArea.code}>{defaultArea.name}</MenuItem>
                         {

@@ -5,6 +5,6 @@ export type StatisticsProps = {
 }
 export type AnalyticsListProps = {
     cases: Array<{cases:number,date: string}>
-    recovered: Array<{cases:number,date: string}>
-    deaths: Array<{cases:number,date: string}>
+    recovered: Array<{recovered:number,date: string}>
+    deaths: Array<{deaths:number,date: string}>
 }
