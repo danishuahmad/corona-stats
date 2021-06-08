@@ -1,16 +1,12 @@
-import { Select, MenuItem, InputLabel, Paper, Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
+import { Select, MenuItem, InputLabel, Box, Grid, makeStyles, createStyles, Theme } from '@material-ui/core'
 import { FilterProps } from './types'
-import DeutschStates from '../../../config/de.states.json'
+import GermanStates from '../../../config/de.states.json'
 import { useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            display: 'flex',
-            padding: `${theme.spacing()*3}px 0`
-        },
         select: {
-            width: '100%'
+            width: '100%',
         }
     }),
 )
@@ -35,10 +31,11 @@ function Filter({refresh}:FilterProps) {
         }
     ]
     const defaultArea = {code:"DE",name:"All German States"}    
+    const defaultTime = {days:365,name:"Since Beginning"}    
 
     //  setup local state
     const [selectedArea, selectArea] = useState<string>(defaultArea.code)
-    const [selectedTimeRange, selectTimeRange] = useState<number | null>(null)
+    const [selectedTimeRange, selectTimeRange] = useState<number | null>(defaultTime.days)
 
     //  local functions
     const updateFilters = async ({area,timeRange}:{
@@ -74,54 +71,55 @@ function Filter({refresh}:FilterProps) {
 
 
     return (
-        <Paper className={classes.root}>
-
-            <Grid item xs={6}>
-                <InputLabel id="demo-simple-select-label">Region</InputLabel>
-                <Select
-                    className={classes.select}
-
-                    id="demo-simple-select"
-                    value={selectedArea}
-                    onChange={event=>updateFilters({area: `${event.target.value}`})}
-                >
-                    <MenuItem value={defaultArea.code}>{defaultArea.name}</MenuItem>
-                    {
-                        DeutschStates.map( deutschState => 
-                            <MenuItem
-                                key={`area-${deutschState.code}`} 
-                                value={deutschState.code}
-                            >
-                                {deutschState.name}
-                            </MenuItem>
-                        )
-                    }
-                </Select>
+        <Box bgcolor="secondary.main" p={4}>
+            <Grid container justify="flex-end" spacing={2}>
+                <Grid item lg={4} xs={12}>
+                    <InputLabel id="demo-simple-select-label">Region</InputLabel>
+                    <Select
+                        className={classes.select}
+                        value={selectedArea}
+                        inputProps={{MenuProps: {disableScrollLock: true}}}
+                        onChange={event=>updateFilters({area: `${event.target.value}`})}
+                    >
+                        <MenuItem value={defaultArea.code}>{defaultArea.name}</MenuItem>
+                        {
+                            GermanStates.map( germanState => 
+                                <MenuItem
+                                    key={`area-${germanState.code}`} 
+                                    value={germanState.code}
+                                >
+                                    {germanState.name}
+                                </MenuItem>
+                            )
+                        }
+                    </Select>
+                </Grid>
+                <Grid item lg={4} xs={12}>
+                    <InputLabel id="demo-simple-select-label">Time Range</InputLabel>
+                    <Select
+                        className={classes.select}
+                        inputProps={{MenuProps: {disableScrollLock: true}}}
+                        value={selectedTimeRange ?? ''}
+                        onChange={
+                            event=> updateFilters({timeRange: Number(`${event.target.value}`) })
+                        }
+                    >
+                        <MenuItem value={defaultTime.days}>{defaultTime.name}</MenuItem>
+                        {
+                            availableTimeRanges.map( timeRange => 
+                                <MenuItem 
+                                    key={`date-${timeRange.days}`} 
+                                    value={timeRange.days}
+                                >
+                                    {timeRange.label}
+                                </MenuItem>
+                            )
+                        }
+                    </Select>
+                </Grid>
             </Grid>
-            <Grid item xs={6}>
-                <InputLabel id="demo-simple-select-label">Time Range</InputLabel>
-                <Select
-                    className={classes.select}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={selectedTimeRange ?? ''}
-                    onChange={
-                        event=> updateFilters({timeRange: Number(`${event.target.value}`) })
-                    }
-                >
-                    {
-                        availableTimeRanges.map( timeRange => 
-                            <MenuItem 
-                                key={`date-${timeRange.days}`} 
-                                value={timeRange.days}
-                            >
-                                {timeRange.label}
-                            </MenuItem>
-                        )
-                    }
-                </Select>
-            </Grid>
-        </Paper>
+           
+        </Box>
     )
 }
 

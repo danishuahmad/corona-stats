@@ -2,7 +2,7 @@ import { get } from "./index"
 import { AggregateRequestResponse, ReferenceResult, Reference } from "./types/dashboardProvider.type"
 
 /** Requests `cases`, `recoveries` and `deaths` separately for given date-range*/
-export const getSeparateStatistics = 
+export const getStatistics = 
     async ({days,state}:{days:number,state:string | undefined}):
     Promise<AggregateRequestResponse['data'] | null> => 
 {

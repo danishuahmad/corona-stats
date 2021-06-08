@@ -4,6 +4,8 @@ import { MuiThemeProvider } from "@material-ui/core/styles"
 import defaultTheme from './src/Components/Layout/theme'
 import CssBaseline from "@material-ui/core/CssBaseline"
 
+import './App.css'
+
 function App() {
   return (
         <MuiThemeProvider theme={defaultTheme}>
