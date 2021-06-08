@@ -7,7 +7,7 @@ export const getStatistics =
     Promise<AggregateRequestResponse['data'] | null> => 
 {
 
-    const resource = state ? `state/${state}` : `germany`
+    const resource = state ? `states/${state}` : `germany`
     const requests = {
         [Reference.Cases]: get(`${resource}/history/cases/${days}`),
         [Reference.Recovered]: get(`${resource}/history/recovered/${days}`),
